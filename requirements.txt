@@ -142,7 +142,7 @@ tqdm==4.66.4
 trio==0.25.0
 trio-websocket==0.11.1
 Twisted==24.3.0
-twisted-iocpsupport==1.0.4
+twisted-iocpsupport==1.0.4; sys_platform == 'win32'
 typing_extensions==4.11.0
 tzdata==2024.1
 urllib3==2.1.0
