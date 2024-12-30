@@ -1,0 +1,36 @@
+<!-- faq.html -->
+{% extends "layout.html" %}
+{% block content %}
+<main>
+    <section class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>What is your shipping policy?</h3>
+                <p>We offer free standard shipping on all orders over $100. Delivery usually takes 5-7 business days. Expedited shipping is available for an additional cost.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What payment methods do you accept?</h3>
+                <p>We accept all major credit cards (Visa, MasterCard, American Express) as well as PayPal and Apple Pay.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I return my order?</h3>
+                <p>Yes, we have a 30-day return policy. Products must be returned in their original condition, and customers are responsible for return shipping fees unless the item is defective.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I track my order?</h3>
+                <p>Once your order is shipped, you will receive a confirmation email with a tracking number. You can use this number to track your order on our website or the shipping carrier's site.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How can I contact customer support?</h3>
+                <p>You can contact us through our <a href="{{ url_for('contact') }}">Contact Us</a> page, or email us at support@sneakerstreetco.com. We are available Monday to Friday from 9 AM to 5 PM.</p>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,119 @@
+<!-- catalog.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Shop Logo</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/catalog">Catalog</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="cart">
+            <a href="/cart">Cart (<span id="cart-count">{{ session.get('cart_count', 0) }}</span>)</a>
+        </div>
+    </nav>
+
+    <!-- Catalog Section -->
+    <div class="catalog">
+        <h1>Our Products</h1>
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product">
+                <img src="{{ url_for('static', filename='images/' + product['image']) }}" alt="{{ product['name'] }}">
+                <h3>{{ product['name'] }}</h3>
+                <p>${{ product['price'] }}</p>
+                <form action="/add_to_cart/{{ product['id'] }}" method="POST">
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Shop Logo. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+
+</html>
+
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Shop Logo</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/catalog">Catalog</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="cart">
+            <a href="/cart">Cart (<span id="cart-count">{{ session.get('cart_count', 0) }}</span>)</a>
+        </div>
+    </nav>
+
+    <!-- Cart Section -->
+    <div class="cart">
+        <h1>Your Shopping Cart</h1>
+        {% if cart and cart|length > 0 %}
+        <ul>
+            {% for item in cart %}
+            <li>
+                <img src="{{ url_for('static', filename='images/' + item['image']) }}" alt="{{ item['name'] }}" width="50">
+                <span>{{ item['name'] }} - ${{ item['price'] }}</span>
+                <form action="/remove_from_cart/{{ item['id'] }}" method="POST" style="display:inline;">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="cart-summary">
+            <p>Total: ${{ total }}</p>
+            <button>Checkout</button>
+        </div>
+        {% else %}
+        <p>Your cart is empty. <a href="/catalog">Go to catalog</a>.</p>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Shop Logo. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
