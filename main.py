@@ -17,29 +17,19 @@ STRIPE_PUBLIC_KEY = "pk_live_8QntnuNdOpEeAJOI1GGXIBCo"
 
 # Dummy data for catalog
 product_catalog = [
-    {"id": 1, "name": "DJI Mini 3 Pro", "price": 749, "image": "dji_mini_3_pro.jpg", "sale_price": 699},
-    {"id": 2, "name": "DJI Air 2S", "price": 999, "image": "dji_air_2s.jpg", "sale_price": 899},
-    {"id": 3, "name": "Autel Robotics EVO II", "price": 1299, "image": "autel_evo_ii.jpg", "sale_price": 1199},
-    {"id": 4, "name": "Parrot Anafi USA", "price": 7000, "image": "parrot_anafi_usa.jpg", "sale_price": 6800},
-    {"id": 5, "name": "Ruko F11 Pro", "price": 250, "image": "ruko_f11_pro.jpg", "sale_price": 199},
-    {"id": 6, "name": "DJI Mavic Mini", "price": 399, "image": "dji_mavic_mini.jpg", "sale_price": 359},
-    {"id": 7, "name": "Hubsan Zino Pro", "price": 499, "image": "hubsan_zino_pro.jpg", "sale_price": 449},
-    {"id": 8, "name": "BetaFPV Beta95X V3", "price": 150, "image": "betafpv_beta95x_v3.jpg", "sale_price": 130},
-    {"id": 9, "name": "DJI FPV Drone", "price": 1299, "image": "dji_fpv_drone.jpg", "sale_price": 1199},
-    {"id": 10, "name": "Sky Viper Streaming Drone", "price": 100, "image": "sky_viper_streaming.jpg", "sale_price": 80},
-    {"id": 11, "name": "Mavic Air 2 Fly More Combo", "price": 998, "image": "mavic_air_2_combo.jpg", "sale_price": 899},
-    {"id": 12, "name": "GoPro Karma Drone", "price": 799, "image": "gopro_karma.jpg", "sale_price": 699},
-    {"id": 13, "name": "FPV Racing Drone Kit", "price": 200, "image": "fpv_racing_drone_kit.jpg", "sale_price": 170},
-    {"id": 14, "name": "DJI Phantom 4 Pro V2.0", "price": 1799, "image": "dji_phantom_4_pro.jpg", "sale_price": 1599},
-    {"id": 15, "name": "Fimi X8 SE", "price": 450, "image": "fimi_x8_se.jpg", "sale_price": 399},
-    {"id": 16, "name": "Holy Stone HS720E", "price": 320, "image": "holy_stone_hs720e.jpg", "sale_price": 280},
-    {"id": 17, "name": "Autel Robotics EVO Nano", "price": 799, "image": "autel_evo_nano.jpg", "sale_price": 749},
-    {"id": 18, "name": "SwellPro SplashDrone 4", "price": 1300, "image": "swellpro_splashdrone4.jpg", "sale_price": 1200},
-    {"id": 19, "name": "Tello Drone by DJI", "price": 99, "image": "tello_drone.jpg", "sale_price": 79},
-    {"id": 20, "name": "Xiaomi Mi Drone 4K", "price": 450, "image": "xiaomi_mi_drone.jpg", "sale_price": 399},
+    {"id": 1, "name": "Hugo Boss Bottled EDT 50ml", "price": 9999, "image": "hugo_boss_bottled_50ml.jpg", "sale_price": 45, "description": "A timeless, elegant fragrance for men with fresh and woody notes."},
+    {"id": 2, "name": "Hugo Boss Bottled Infinite EDP 100ml", "price": 9999, "image": "hugo_boss_infinite_edp_100ml.jpg", "sale_price": 70, "description": "A vibrant and invigorating scent with citrus and spicy undertones."},
+    {"id": 3, "name": "Armani Acqua di Gio EDP 125ml", "price": 9999, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 89, "description": "A fresh aquatic fragrance with a mix of marine and earthy tones."},
+    {"id": 4, "name": "Hugo Boss Bottled EDP 200ml", "price": 999, "image": "hugo_boss_bottled_50ml.jpg", "sale_price": 110, "description": "An intense and sophisticated version of the classic Bottled fragrance."},
+    {"id": 5, "name": "Montblanc_legend_EDT_50ml", "price": 9999, "image": "montblanc_legend_EDT_50ml.jpg", "sale_price": 55, "description": "A daring and adventurous scent with woody and leather notes."},
+    {"id": 6, "name": "Giorgio Armani EDT 30ml", "price": 9999, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 35, "description": "A classic fragrance with an elegant balance of citrus and spices."},
+    {"id": 7, "name": "1 Million Paco Rabanne EDT 100ml", "price": 9999, "image": "paco_rabanne_1million_100ml.jpg", "sale_price": 75, "description": "A bold and luxurious scent with warm and spicy notes."},
+    {"id": 8, "name": "Burberry_EDT_50ml", "price": 9999, "image": "burberry_EDT_100ml.png", "sale_price": 60, "description": "A classic and sophisticated fragrance with floral and woody undertones."},
+    {"id": 9, "name": "Hugo Boss The Scent EDT 100ml", "price": 9999, "image": "hugo_boss_thescent.jpg", "sale_price": 80, "description": "An irresistible scent with spicy, fruity, and leathery accords."},
+    {"id": 10, "name": "Giorgio Armani Acqua di Gio EDP 200ml", "price": 9999, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 140, "description": "A refreshing and masculine fragrance inspired by the Mediterranean."},
+    {"id": 11, "name": "Burberry_EDT_100ml", "price": 9999, "image": "burberry_EDT_100ml.png", "sale_price": 45, "description": "A smaller-sized classic Burberry fragrance, perfect for everyday wear."},
+    {"id": 12, "name": "Kenzo L'Eau EDT 30ml", "price": 9999, "image": "kenzo_pour_homme_edp2.jpg", "sale_price": 30, "description": "A light and aquatic fragrance with fresh and floral notes."},
 ]
-
-
 
 # Flash sale configuration
 flash_sale_duration = timedelta(hours=4)
@@ -146,8 +136,8 @@ def create_checkout_session():
             mode='payment',
             #success_url=url_for('success', _external=True),
             #cancel_url=url_for('cancel', _external=True),
-            success_url=f'https://322a-2001-14bb-675-4f13-2590-2557-6f3a-e018.ngrok-free.app/success',  # Update with ngrok HTTPS URL
-            cancel_url=f'https://322a-2001-14bb-675-4f13-2590-2557-6f3a-e018.ngrok-free.app/cancel',    # Update with ngrok HTTPS URL
+            success_url=f'https://www.decksmith.eu/success',  # Update with ngrok HTTPS URL
+            cancel_url=f'https://www.decksmith.eu/cancel',    # Update with ngrok HTTPS URL
         )
         return jsonify({'sessionId': checkout_session.id})
     except Exception as e:
