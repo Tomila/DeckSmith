@@ -239,6 +239,90 @@ nav .signin:hover {
     color: #555;
 }
 
+/* Updated Modal Styles */
+#product-modal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark overlay with more opacity */
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-in-out; /* Add fade-in animation */
+}
+
+/* Modal Content */
+.modal-content {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient background for a modern look */
+    padding: 25px;
+    border-radius: 15px; /* Rounded corners */
+    width: 60%; /* Adjust the width of the modal */
+    max-width: 500px;
+    text-align: center;
+    color: white; /* White text to contrast against the background */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Add a subtle shadow for depth */
+    transform: scale(0.9); /* Initial scale for animation */
+    animation: popIn 0.3s ease forwards; /* Smooth pop-in effect */
+}
+
+/* Close Button */
+#close-modal {
+    cursor: pointer;
+    font-size: 20px;
+    color: white; /* Match with the modal text */
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for the button */
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+#close-modal:hover {
+    transform: scale(1.2); /* Slight zoom on hover */
+    background: rgba(255, 255, 255, 0.3); /* Lighter background on hover */
+}
+
+/* Add Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.9);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Add Responsive Design for Modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%; /* Adjust modal width for smaller screens */
+        padding: 20px;
+    }
+    #close-modal {
+        font-size: 18px; /* Slightly smaller close button */
+    }
+}
+
 /* Cart Page Styling */
 .cart {
     padding: 20px;
@@ -443,6 +527,11 @@ footer .social-links img:hover {
 
 .main-content {
     margin-right: 320px; /* Space for the sidebar */
+}
+
+.show-info-btn {
+    position: relative; /* Ensure this is relative if not set */
+    top: 10px; /* Adjust to 10px if needed */
 }
 
 /* Slider Container */
