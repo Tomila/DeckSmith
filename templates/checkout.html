@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://js.stripe.com/v3/"></script>
 
-    <!-- <div class="right-sidebar"> -->
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5150877637487478" 
         crossorigin="anonymous"></script>
@@ -20,18 +19,31 @@
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-<!-- </div> -->
-
 </head>
 <body>
+    <!-- Updated Navbar -->
     <nav>
-        <div class="logo">Shop Logo</div>
-        <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('cart') }}">Cart</a></li>
-        </ul>
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" class="logo-img">
+            </a>
+            <span class="site-name">DeckSmith</span>
+        </div>
+        <div class="announcement">
+            <p>🎉 Happy New Year 2025!</p>
+        </div>
+        <div class="navbar-right">
+            <div class="signin">
+                <a href="{{ url_for('signin') }}">Sign In</a>
+            </div>
+            <div class="cart-indicator">
+                <a href="{{ url_for('cart') }}">🛒 Cart (<span id="cart-count">{{ cart_count }}</span>)</a>
+            </div>
+        </div>
     </nav>
+    
 
+    <!-- Main Checkout Section -->
     <div class="checkout">
         <h1>Checkout</h1>
         <table class="checkout-table">
@@ -85,30 +97,30 @@
     });
     </script>
 
-<!-- Footer with Navigation Bar -->
-<footer>
-    <div class="footer-nav">
-        <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">FAQ</a></li>
-        </ul>
-    </div>
-    <div class="social-links">
-        <a href="https://www.tiktok.com/@yourusername" target="_blank" class="social-icon">
-            <img src="path-to-your-tiktok-icon.png" alt="TikTok">
-        </a>
-        <a href="https://www.ebay.com/usr/yourusername" target="_blank" class="social-icon">
-            <img src="path-to-your-ebay-icon.png" alt="eBay">
-        </a>
-    </div>
-    <p>&copy; 2024 Your Store Name. All rights reserved.</p>
-</footer>
-
+    <!-- Footer -->
+    <footer>
+        <div class="footer-nav">
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="social-links">
+            <a href="https://www.tiktok.com/@yourusername" target="_blank" class="social-icon">
+                <img src="{{ url_for('static', filename='tiktok-icon.png') }}" alt="TikTok">
+            </a>
+            <a href="https://www.ebay.com/usr/yourusername" target="_blank" class="social-icon">
+                <img src="{{ url_for('static', filename='ebay-icon.png') }}" alt="eBay">
+            </a>
+        </div>
+        <p>&copy; 2025 Your Store Name. All rights reserved.</p>
+    </footer>
 </body>
 </html>
+
 
 
 

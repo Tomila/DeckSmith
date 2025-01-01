@@ -79,11 +79,13 @@
     <!-- Navigation Bar -->
     <nav>
         <div class="logo">
-            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" class="logo-img">
+            </a>
             <span class="site-name">DeckSmith</span>
         </div>
         <div class="announcement">
-            <p>🚨 Big Sale! 50% off on selected items! 🛍️</p>
+            <p>🎉 Happy New Year 2025!</p>
         </div>
         <div class="navbar-right">
             <div class="signin">
@@ -94,6 +96,7 @@
             </div>
         </div>
     </nav>
+    
 
     <!-- Commercial Slider Section -->
     <div class="slider">
