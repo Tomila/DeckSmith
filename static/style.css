@@ -335,8 +335,10 @@ nav .signin:hover {
 }
 
 .cart h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+    text-align: center; /* Centers the text horizontally */
+    font-size: 2em; /* Adjust font size as needed */
+    margin-bottom: 20px; /* Adds some spacing below the heading */
+    color: #333; /* Optional: Adjust color for better contrast */
 }
 
 .cart-table {
@@ -438,6 +440,15 @@ footer .social-links img:hover {
 }
 
 /* Checkout Page Styles */
+
+.checkout  {
+        text-align: center; /* Centers the text horizontally */
+        font-size: 2em; /* Adjust font size as needed */
+        margin-bottom: 20px; /* Adds some spacing below the heading */
+        color: #333; /* Optional: Adjust color for better contrast */
+
+    }
+
 .checkout-table {
     width: 100%;
     border-collapse: collapse;
