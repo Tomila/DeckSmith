@@ -17,18 +17,18 @@ STRIPE_PUBLIC_KEY = "pk_live_8QntnuNdOpEeAJOI1GGXIBCo"
 
 # Dummy data for catalog
 product_catalog = [
-    {"id": 1, "name": "Hugo Boss Bottled EDT 50ml", "price": 9999, "image": "hugo_boss_bottled_50ml.jpg", "sale_price": 45, "description": "A timeless, elegant fragrance for men with fresh and woody notes."},
-    {"id": 2, "name": "Hugo Boss Bottled Infinite EDP 100ml", "price": 9999, "image": "hugo_boss_infinite_edp_100ml.jpg", "sale_price": 70, "description": "A vibrant and invigorating scent with citrus and spicy undertones."},
-    {"id": 3, "name": "Armani Acqua di Gio EDP 125ml", "price": 9999, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 89, "description": "A fresh aquatic fragrance with a mix of marine and earthy tones."},
-    {"id": 4, "name": "Hugo Boss Bottled EDP 200ml", "price": 999, "image": "hugo_boss_bottled_50ml.jpg", "sale_price": 110, "description": "An intense and sophisticated version of the classic Bottled fragrance."},
-    {"id": 5, "name": "Montblanc_legend_EDT_50ml", "price": 9999, "image": "montblanc_legend_EDT_50ml.jpg", "sale_price": 55, "description": "A daring and adventurous scent with woody and leather notes."},
-    {"id": 6, "name": "Giorgio Armani EDT 30ml", "price": 9999, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 35, "description": "A classic fragrance with an elegant balance of citrus and spices."},
-    {"id": 7, "name": "1 Million Paco Rabanne EDT 100ml", "price": 9999, "image": "paco_rabanne_1million_100ml.jpg", "sale_price": 75, "description": "A bold and luxurious scent with warm and spicy notes."},
-    {"id": 8, "name": "Burberry_EDT_50ml", "price": 9999, "image": "burberry_EDT_100ml.png", "sale_price": 60, "description": "A classic and sophisticated fragrance with floral and woody undertones."},
-    {"id": 9, "name": "Hugo Boss The Scent EDT 100ml", "price": 9999, "image": "hugo_boss_thescent.jpg", "sale_price": 80, "description": "An irresistible scent with spicy, fruity, and leathery accords."},
-    {"id": 10, "name": "Giorgio Armani Acqua di Gio EDP 200ml", "price": 9999, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 140, "description": "A refreshing and masculine fragrance inspired by the Mediterranean."},
-    {"id": 11, "name": "Burberry_EDT_100ml", "price": 9999, "image": "burberry_EDT_100ml.png", "sale_price": 45, "description": "A smaller-sized classic Burberry fragrance, perfect for everyday wear."},
-    {"id": 12, "name": "Kenzo L'Eau EDT 30ml", "price": 9999, "image": "kenzo_pour_homme_edp2.jpg", "sale_price": 30, "description": "A light and aquatic fragrance with fresh and floral notes."},
+    {"id": 1, "name": "Hugo Boss Bottled EDT 50ml", "price": 9999, "image": "hugo_boss_bottled_50ml.jpg", "sale_price": 9999, "description": "A timeless, elegant fragrance for men with fresh and woody notes."},
+    {"id": 2, "name": "Hugo Boss Bottled Infinite EDP 100ml", "price": 9999, "image": "hugo_boss_infinite_edp_100ml.jpg", "sale_price": 9999, "description": "A vibrant and invigorating scent with citrus and spicy undertones."},
+    {"id": 3, "name": "Armani Acqua di Gio EDP 125ml", "price": 9999, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 9999, "description": "A fresh aquatic fragrance with a mix of marine and earthy tones."},
+    {"id": 4, "name": "Hugo Boss Bottled EDP 200ml", "price": 999, "image": "hugo_boss_bottled_50ml.jpg", "sale_price": 9999, "description": "An intense and sophisticated version of the classic Bottled fragrance."},
+    {"id": 5, "name": "Montblanc_legend_EDT_50ml", "price": 9999, "image": "montblanc_legend_EDT_50ml.jpg", "sale_price": 9999, "description": "A daring and adventurous scent with woody and leather notes."},
+    {"id": 6, "name": "Giorgio Armani EDT 30ml", "price": 9999, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 9999, "description": "A classic fragrance with an elegant balance of citrus and spices."},
+    {"id": 7, "name": "1 Million Paco Rabanne EDT 100ml", "price": 9999, "image": "paco_rabanne_1million_100ml.jpg", "sale_price": 9999, "description": "A bold and luxurious scent with warm and spicy notes."},
+    {"id": 8, "name": "Burberry EDT 50ml", "price": 9999, "image": "Burberry_EDT_100ml.png", "sale_price": 9999, "description": "A classic and sophisticated fragrance with floral and woody undertones."},
+    {"id": 9, "name": "Hugo Boss The Scent EDT 100ml", "price": 9999, "image": "hugo_boss_thescent.jpg", "sale_price": 9999, "description": "An irresistible scent with spicy, fruity, and leathery accords."},
+    {"id": 10, "name": "Giorgio Armani Acqua di Gio EDP 200ml", "price": 9999, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 9999, "description": "A refreshing and masculine fragrance inspired by the Mediterranean."},
+    {"id": 11, "name": "Burberry EDT 100ml", "price": 9999, "image": "Burberry_EDT_100ml.png", "sale_price": 9999, "description": "A smaller-sized classic Burberry fragrance, perfect for everyday wear."},
+    {"id": 12, "name": "Kenzo L'Eau EDT 30ml", "price": 9999, "image": "kenzo_pour_homme_edp2.jpg", "sale_price": 9999, "description": "A light and aquatic fragrance with fresh and floral notes."},
 ]
 
 # Flash sale configuration
