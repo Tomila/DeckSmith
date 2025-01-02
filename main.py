@@ -3,6 +3,9 @@ import secrets
 import stripe
 from flask import Flask, render_template, url_for, request, redirect, flash, session, jsonify
 from datetime import datetime, timedelta
+from sqlalchemy import create_engine, Column, Integer, String, Float
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 # Initialize Flask app
 main = Flask(__name__)
@@ -14,6 +17,35 @@ main.secret_key = secrets.token_hex(16)
 # Secret Key
 stripe.api_key = "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"
 STRIPE_PUBLIC_KEY = "pk_live_8QntnuNdOpEeAJOI1GGXIBCo"
+
+# SQLAlchemy setup
+DATABASE_URL = "sqlite:///decksmith.db"  # Use SQLite; update for production
+engine = create_engine(DATABASE_URL)
+Base = declarative_base()
+
+# Customer model
+class Customer(Base):
+    __tablename__ = "customers"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    phone = Column(String, nullable=False)
+    address = Column(String, nullable=False)
+    city = Column(String, nullable=False)
+    state = Column(String, nullable=False)
+    zip_code = Column(String, nullable=False)
+    country = Column(String, nullable=False)
+    total_price = Column(Float, nullable=False)
+
+    def __repr__(self):
+        return f"<Customer(id={self.id}, name={self.name}, email={self.email}, phone={self.phone})>"
+
+# Create tables
+Base.metadata.create_all(engine)
+
+# Session maker
+Session = sessionmaker(bind=engine)
+db_session = Session()
 
 # Dummy data for catalog
 product_catalog = [
@@ -105,8 +137,42 @@ def remove_from_cart(product_id):
     flash('Item removed from cart.')
     return redirect(url_for('cart'))
 
-@main.route('/checkout')
+@main.route('/checkout', methods=['GET', 'POST'])
 def checkout():
+    if request.method == 'POST':
+        # Capture customer details from form
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+        address = request.form['address']
+        city = request.form['city']
+        state = request.form['state']
+        zip_code = request.form['zip']
+        country = request.form['country']
+
+        # Calculate total price
+        cart = session.get('cart', [])
+        total_price = sum(item['price'] * item['quantity'] for item in cart)
+
+        # Save customer to the database
+        new_customer = Customer(
+            name=name,
+            email=email,
+            phone=phone,
+            address=address,
+            city=city,
+            state=state,
+            zip_code=zip_code,
+            country=country,
+            total_price=total_price
+        )
+        db_session.add(new_customer)
+        db_session.commit()
+
+        flash("Customer details saved! Proceeding to payment...", "success")
+        return redirect(url_for('create_checkout_session'))
+
+    # Render checkout page
     cart = session.get('cart', [])
     total_price = sum(item['price'] * item['quantity'] for item in cart)
     return render_template('checkout.html', cart=cart, total_price=total_price, STRIPE_PUBLIC_KEY=STRIPE_PUBLIC_KEY)
@@ -118,26 +184,23 @@ def create_checkout_session():
         if not cart:
             raise Exception('No items in cart')
 
-        line_items = []
-        for item in cart:
-            line_items.append({
+        line_items = [
+            {
                 'price_data': {
                     'currency': 'usd',
                     'product_data': {'name': item['name']},
                     'unit_amount': int(item['price'] * 100),
                 },
                 'quantity': item['quantity'],
-            })
+            } for item in cart
+        ]
 
-        # Rename session to checkout_session to avoid conflict
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=line_items,
             mode='payment',
-            #success_url=url_for('success', _external=True),
-            #cancel_url=url_for('cancel', _external=True),
-            success_url=f'https://www.decksmith.eu/success',  # Update with ngrok HTTPS URL
-            cancel_url=f'https://www.decksmith.eu/cancel',    # Update with ngrok HTTPS URL
+            success_url=f'https://www.decksmith.eu/success',
+            cancel_url=f'https://www.decksmith.eu/cancel',
         )
         return jsonify({'sessionId': checkout_session.id})
     except Exception as e:
