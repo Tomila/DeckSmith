@@ -19,9 +19,9 @@
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <!-- Updated Navbar -->
     <nav>
         <div class="logo">
             <a href="{{ url_for('index') }}">
@@ -42,12 +42,10 @@
         </div>
     </nav>
 
-    <!-- Main Checkout Section -->
     <div class="checkout">
         <h1>Checkout</h1>
 
-        <!-- Customer Details Form -->
-        <form id="customer-details-form">
+        <form id="customer-details-form" method="POST">
             <h2>Customer Details</h2>
             <div class="form-group">
                 <label for="name">Full Name</label>
@@ -85,7 +83,6 @@
             <button type="submit">Proceed to Payment</button>
         </form>
 
-        <!-- Order Summary -->
         <h2>Your Order</h2>
         <table class="checkout-table">
             <thead>
@@ -114,31 +111,38 @@
 
     <script>
         document.getElementById('customer-details-form').addEventListener('submit', async event => {
-            event.preventDefault();
+            event.preventDefault(); // Prevent default form submission
             
-            const formData = new FormData(event.target);
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zip: document.getElementById('zip').value,
+                country: document.getElementById('country').value,
+            };
 
             try {
-                const response = await fetch('/save_customer_details', {
-                    method: 'POST',
-                    body: formData
+                const response = await axios.post('/checkout', formData, {
+                    headers: { 'Content-Type': 'application/json' },
                 });
 
-                if (response.ok) {
-                    const { sessionId } = await response.json();
-                    const stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}'); // Replace with your Stripe public key
+                if (response.status === 200) {
+                    const { sessionId } = response.data;
+                    const stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
                     await stripe.redirectToCheckout({ sessionId });
                 } else {
-                    alert('Unable to proceed to payment. Please try again.');
+                    alert('Unable to proceed to payment: ' + response.data.error);
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Unable to proceed to payment. Please try again.');
+                alert('An error occurred: ' + (error.response?.data?.error || 'Unknown error'));
             }
         });
     </script>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-nav">
             <ul>
@@ -161,6 +165,8 @@
     </footer>
 </body>
 </html>
+
+
 
 
 

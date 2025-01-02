@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from sqlalchemy import create_engine, Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import IntegrityError
 
 # Initialize Flask app
 main = Flask(__name__)
@@ -140,49 +141,69 @@ def remove_from_cart(product_id):
 @main.route('/checkout', methods=['GET', 'POST'])
 def checkout():
     if request.method == 'POST':
-        # Capture customer details from form
-        name = request.form['name']
-        email = request.form['email']
-        phone = request.form['phone']
-        address = request.form['address']
-        city = request.form['city']
-        state = request.form['state']
-        zip_code = request.form['zip']
-        country = request.form['country']
+        try:
+            # Get form data
+            data = request.form.to_dict()
 
-        # Calculate total price
-        cart = session.get('cart', [])
-        total_price = sum(item['price'] * item['quantity'] for item in cart)
+            # Validate required fields
+            required_fields = ['name', 'email', 'phone', 'address', 'city', 'state', 'zip', 'country']
+            missing_fields = [field for field in required_fields if not data.get(field)]
+            if missing_fields:
+                flash(f'Missing fields: {", ".join(missing_fields)}', 'danger')
+                return redirect(url_for('checkout'))
 
-        # Save customer to the database
-        new_customer = Customer(
-            name=name,
-            email=email,
-            phone=phone,
-            address=address,
-            city=city,
-            state=state,
-            zip_code=zip_code,
-            country=country,
-            total_price=total_price
-        )
-        db_session.add(new_customer)
-        db_session.commit()
+            # Retrieve cart from session
+            cart = session.get('cart', [])
+            if not cart:
+                flash('Cart is empty. Please add items to proceed.', 'danger')
+                return redirect(url_for('cart'))
 
-        flash("Customer details saved! Proceeding to payment...", "success")
-        return redirect(url_for('create_checkout_session'))
+            # Calculate total price
+            total_price = sum(item['price'] * item['quantity'] for item in cart)
+
+            # Save or update customer details
+            existing_customer = db_session.query(Customer).filter_by(email=data['email']).first()
+            if existing_customer:
+                # Update details
+                for field in ['name', 'phone', 'address', 'city', 'state', 'zip', 'country']:
+                    setattr(existing_customer, field, data[field])
+                existing_customer.total_price = total_price
+            else:
+                # Create new customer
+                new_customer = Customer(
+                    name=data['name'],
+                    email=data['email'],
+                    phone=data['phone'],
+                    address=data['address'],
+                    city=data['city'],
+                    state=data['state'],
+                    zip_code=data['zip'],
+                    country=data['country'],
+                    total_price=total_price
+                )
+                db_session.add(new_customer)
+
+            db_session.commit()
+            flash('Customer details saved. Proceeding to payment.', 'success')
+            return redirect(url_for('cart'))
+
+        except Exception as e:
+            db_session.rollback()
+            flash(f'An error occurred: {e}', 'danger')
+            return redirect(url_for('checkout'))
 
     # Render checkout page
     cart = session.get('cart', [])
     total_price = sum(item['price'] * item['quantity'] for item in cart)
     return render_template('checkout.html', cart=cart, total_price=total_price, STRIPE_PUBLIC_KEY=STRIPE_PUBLIC_KEY)
 
+
 @main.route('/create_checkout_session', methods=['POST'])
 def create_checkout_session():
     try:
         cart = session.get('cart', [])
         if not cart:
-            raise Exception('No items in cart')
+            return jsonify({'error': 'No items in cart'}), 400
 
         line_items = [
             {
@@ -195,17 +216,22 @@ def create_checkout_session():
             } for item in cart
         ]
 
+        if not line_items:
+            return jsonify({'error': 'No valid items to process in cart'}), 400
+
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=line_items,
             mode='payment',
-            success_url=f'https://www.decksmith.eu/success',
-            cancel_url=f'https://www.decksmith.eu/cancel',
+            success_url=' https://2acb-2001-14bb-675-4f13-483c-bb14-b3d0-873.ngrok-free.app/success',
+            cancel_url=' https://2acb-2001-14bb-675-4f13-483c-bb14-b3d0-873.ngrok-free.app/cancel',
         )
         return jsonify({'sessionId': checkout_session.id})
+
     except Exception as e:
         print(f"Error creating checkout session: {e}")
         return jsonify({'error': str(e)}), 400
+
 
 @main.route('/success')
 def success():
@@ -218,6 +244,7 @@ def cancel():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     main.run(host="0.0.0.0", port=port)
+
 
 
 
