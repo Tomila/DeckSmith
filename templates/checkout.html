@@ -30,9 +30,9 @@
             <span class="site-name">DeckSmith</span>
         </div>
         <div class="announcement">
-            <p>🎉 Happy New Year 2025!</p>
+            <p>🎉</p>
         </div>
-        <div class="navbar-right">
+        <div class="actions">
             <div class="signin">
                 <a href="{{ url_for('signin') }}">Sign In</a>
             </div>
@@ -45,7 +45,7 @@
     <div class="checkout">
         <h1>Checkout</h1>
 
-        <form id="customer-details-form" method="POST">
+        <form id="customer-details-form" method="POST" action="/checkout">
             <h2>Customer Details</h2>
             <div class="form-group">
                 <label for="name">Full Name</label>
@@ -112,36 +112,33 @@
     <script>
         document.getElementById('customer-details-form').addEventListener('submit', async event => {
             event.preventDefault(); // Prevent default form submission
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                address: document.getElementById('address').value,
-                city: document.getElementById('city').value,
-                state: document.getElementById('state').value,
-                zip: document.getElementById('zip').value,
-                country: document.getElementById('country').value,
-            };
-
+    
+            // Collect form data
+            const formData = new FormData(event.target);
+    
             try {
-                const response = await axios.post('/checkout', formData, {
-                    headers: { 'Content-Type': 'application/json' },
+                // Send form data to the backend to create a Stripe Checkout session
+                const response = await fetch('/create_checkout_session', {
+                    method: 'POST',
+                    body: formData,
                 });
-
-                if (response.status === 200) {
-                    const { sessionId } = response.data;
+    
+                const result = await response.json();
+    
+                if (response.ok && result.sessionId) {
+                    // Redirect to Stripe Checkout
                     const stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
-                    await stripe.redirectToCheckout({ sessionId });
+                    await stripe.redirectToCheckout({ sessionId: result.sessionId });
                 } else {
-                    alert('Unable to proceed to payment: ' + response.data.error);
+                    alert('Unable to proceed to payment: ' + (result.error || 'Unknown error'));
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('An error occurred: ' + (error.response?.data?.error || 'Unknown error'));
+                alert('An error occurred: ' + (error.message || 'Unknown error'));
             }
         });
     </script>
+    
 
     <footer>
         <div class="footer-nav">

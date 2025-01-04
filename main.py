@@ -184,8 +184,32 @@ def checkout():
                 db_session.add(new_customer)
 
             db_session.commit()
-            flash('Customer details saved. Proceeding to payment.', 'success')
-            return redirect(url_for('cart'))
+
+            # Create Stripe Checkout session
+            line_items = [
+                {
+                    'price_data': {
+                        'currency': 'usd',
+                        'product_data': {
+                            'name': item['name'],
+                        },
+                        'unit_amount': int(item['price'] * 100),  # Convert to cents
+                    },
+                    'quantity': item['quantity'],
+                }
+                for item in cart
+            ]
+
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=line_items,
+                mode='payment',
+                success_url=url_for('success', _external=True),
+                cancel_url=url_for('cancel', _external=True),
+            )
+
+            # Redirect to Stripe Checkout
+            return jsonify({'sessionId': checkout_session.id})
 
         except Exception as e:
             db_session.rollback()
@@ -223,8 +247,8 @@ def create_checkout_session():
             payment_method_types=['card'],
             line_items=line_items,
             mode='payment',
-            success_url=' https://www.decksmith.eu/success',
-            cancel_url=' https://www.decksmith.eu/cancel',
+            success_url='https://3e0e-2001-14bb-675-4f13-483c-bb14-b3d0-873.ngrok-free.app/success',
+            cancel_url='https://3e0e-2001-14bb-675-4f13-483c-bb14-b3d0-873.ngrok-free.app/cancel',
         )
         return jsonify({'sessionId': checkout_session.id})
 
