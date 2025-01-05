@@ -29,6 +29,36 @@
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
+
+     <script>
+        document.getElementById('customer-details-form').addEventListener('submit', async event => {
+            event.preventDefault(); // Prevent default form submission
+    
+            // Collect form data
+            const formData = new FormData(event.target);
+    
+            try {
+                // Send form data to the backend to create a Stripe Checkout session
+                const response = await fetch('/create_checkout_session', {
+                    method: 'POST',
+                    body: formData,
+                });
+    
+                const result = await response.json();
+    
+                if (response.ok && result.sessionId) {
+                    // Redirect to Stripe Checkout
+                    const stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
+                    await stripe.redirectToCheckout({ sessionId: result.sessionId });
+                } else {
+                    alert('Unable to proceed to payment: ' + (result.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred: ' + (error.message || 'Unknown error'));
+            }
+        });
+    </script>
 <!-- </div> -->
 
 </head>

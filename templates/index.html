@@ -60,6 +60,8 @@
             function showNotification(message) {
                 const notification = $('<div class="notification"></div>').text(message);
                 notificationContainer.append(notification);
+                notification.css({ top: '60px', opacity: 0 }); // Set initial position and opacity
+    notification.animate({ top: '20px', opacity: 1 }, 300); // Animate the drop effect
                 notification.fadeIn(300);
 
                 // Fade out and remove the notification after 3 seconds
@@ -67,7 +69,7 @@
                     notification.fadeOut(300, () => {
                         notification.remove();
                     });
-                }, 3000);
+                }, 2000);
             }
 
             // Add to cart form submission

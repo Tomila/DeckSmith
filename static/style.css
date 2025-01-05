@@ -643,6 +643,26 @@ footer .social-links img:hover {
     background-color: white;
 }
 
+#notification-container {
+    position: fixed; /* Ensures the container stays in a fixed position relative to the viewport */
+    top: 500px; /* Adjust the vertical position of the container */
+    right: 20px; /* Aligns the container to the right */
+    z-index: 1000; /* Ensures it appears above other content */
+}
+
+.notification {
+    position: relative;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    white-space: nowrap; /* Prevents text wrapping */
+}
+
+
 
 
 
