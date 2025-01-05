@@ -249,8 +249,8 @@ def create_checkout_session():
             payment_method_types=['card'],
             line_items=line_items,
             mode='payment',
-            success_url='https://1ef4-2001-14bb-cb-f090-bc78-c407-54e1-ddf4.ngrok-free.app/success',
-            cancel_url='https://1ef4-2001-14bb-cb-f090-bc78-c407-54e1-ddf4.ngrok-free.app/cancel',
+            success_url='https://www.decksmith.eu/success',
+            cancel_url='https://www.decksmith.eu/cancel',
         )
         return jsonify({'sessionId': checkout_session.id})
 
