@@ -50,7 +50,7 @@ db_session = Session()
 
 # Dummy data for catalog
 product_catalog = [
-    {"id": 1, "name": "Hugo Boss Bottled EDT 50ml", "price": 0, "image": "hugo_boss_bottled_50ml.jpg", "sale_price": 0, "description": "A timeless, elegant fragrance for men with fresh and woody notes."},
+    {"id": 1, "name": "Hugo Boss Bottled EDT 50ml", "price": 44.99, "image": "hugo_boss_bottled_50ml.jpg", "sale_price": 44.99, "description": "A timeless, elegant fragrance for men with fresh and woody notes."},
     {"id": 2, "name": "Versace Eros EDT 100 ml", "price": 67.99, "image": "versace_eros_EDT_100ml.jpg", "sale_price": 67.99, "description": "A vibrant and invigorating scent with citrus and spicy undertones."},
     {"id": 3, "name": "Acqua di Gio EDP 50ml", "price": 67, "image": "armani_acqua_di_gio_125ml.jpg", "sale_price": 67, "description": "A fresh aquatic fragrance with a mix of marine and earthy tones."},
     {"id": 4, "name": "Hugo Boss Bottled EDT 100ml", "price": 66.99, "image": "hugo_boss_bottled_50ml.jpg", "sale_price": 66.99, "description": "A timeless, elegant fragrance for men with fresh and woody notes."},
