@@ -53,6 +53,23 @@
                 fade: true
             });
 
+            // Create a notification container
+            const notificationContainer = $('<div id="notification-container"></div>').appendTo('body');
+
+            // Function to show a self-closing notification
+            function showNotification(message) {
+                const notification = $('<div class="notification"></div>').text(message);
+                notificationContainer.append(notification);
+                notification.fadeIn(300);
+
+                // Fade out and remove the notification after 3 seconds
+                setTimeout(() => {
+                    notification.fadeOut(300, () => {
+                        notification.remove();
+                    });
+                }, 3000);
+            }
+
             // Add to cart form submission
             document.querySelectorAll('.add-to-cart-form').forEach(form => {
                 form.addEventListener('submit', async event => {
@@ -64,18 +81,32 @@
                     });
 
                     if (response.ok) {
-                        const data = await response.json();
-                        document.getElementById('cart-count').textContent = data.cart_count;
-                        alert('Item added to cart!');
+                        showNotification('Item added to cart!');
                     } else {
-                        alert('Failed to add item to cart.');
+                        showNotification('Failed to add item to cart.');
                     }
                 });
             });
         });
-        
     </script>
-    
+    <style>
+        #notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .notification {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: none; /* Initially hidden */
+        }
+    </style>
 </head>
 
 <body>
@@ -95,11 +126,10 @@
                 <a href="{{ url_for('signin') }}">Sign In</a>
             </div>
             <div class="cart-indicator">
-                <a href="{{ url_for('cart') }}">🛒 Cart (<span id="cart-count">{{ cart_count }}</span>)</a>
+                <a href="{{ url_for('cart') }}">Cart</a>
             </div>
         </div>
     </nav>
-    
 
     <!-- Commercial Slider Section -->
     <div class="slider">
@@ -168,6 +198,8 @@
 </body>
 
 </html>
+
+
 
 
 

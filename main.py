@@ -141,6 +141,7 @@ def remove_from_cart(product_id):
 @main.route('/checkout', methods=['GET', 'POST'])
 def checkout():
     if request.method == 'POST':
+        
         try:
             # Get form data
             data = request.form.to_dict()
@@ -247,8 +248,8 @@ def create_checkout_session():
             payment_method_types=['card'],
             line_items=line_items,
             mode='payment',
-            success_url='https://decksmith.eu/success',
-            cancel_url='https://decksmith.eu/cancel',
+            success_url='https://1ef4-2001-14bb-cb-f090-bc78-c407-54e1-ddf4.ngrok-free.app/success',
+            cancel_url='https://1ef4-2001-14bb-cb-f090-bc78-c407-54e1-ddf4.ngrok-free.app/cancel',
         )
         return jsonify({'sessionId': checkout_session.id})
 
