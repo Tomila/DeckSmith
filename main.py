@@ -251,6 +251,11 @@ def create_checkout_session():
             mode='payment',
             success_url='https://www.decksmith.eu/success',
             cancel_url='https://www.decksmith.eu/cancel',
+            customer_email=request.form.get('email'),  # Use form email if provided
+            shipping_address_collection={
+                'allowed_countries': ['US', 'CA', 'GB', 'AU', 'FR', 'FI'],  # Add relevant countries
+            },
+            billing_address_collection='required',  # Force billing address collection
         )
         return jsonify({'sessionId': checkout_session.id})
 
